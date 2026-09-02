@@ -1,96 +1,384 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>BaRu24 – Einfach. Digital. Verwaltet.</title>
+  <meta name="description" content="BaRu24 Immobilienverwaltung – moderne, digitale Immobilienverwaltung mit 24/7 Zugriff auf Ihre Daten." />
 
   <style>
+    :root {
+      --bg: #f4f7f8;
+      --card: rgba(255, 255, 255, 0.78);
+      --text: #102433;
+      --muted: #6c7b84;
+      --accent: #67aaa8;
+      --accent-dark: #4c9190;
+      --border: rgba(16, 36, 51, 0.08);
+      --shadow: 0 20px 50px rgba(16, 36, 51, 0.10);
+      --radius: 26px;
+      --max-width: 1120px;
+    }
+
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(103,170,168,0.16), transparent 35%),
+        radial-gradient(circle at top right, rgba(16,36,51,0.06), transparent 28%),
+        linear-gradient(180deg, #f8fbfb 0%, #f3f7f8 100%);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #f8fafb;
-      color: #102433;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-                   Helvetica, Arial, sans-serif;
     }
 
-    .container {
+    .page {
       width: 100%;
-      max-width: 900px;
-      padding: 40px 24px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 30px rgba(16,36,51,0.05);
+      font-size: 14px;
+      color: var(--muted);
+      backdrop-filter: blur(10px);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(103,170,168,0.14);
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      border-radius: 36px;
+      padding: 52px 28px;
       text-align: center;
+      overflow: hidden;
+      position: relative;
     }
 
-    .brand {
-      font-size: clamp(64px, 12vw, 110px);
-      font-weight: 500;
-      letter-spacing: -5px;
-      line-height: 1;
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      top: -90px;
+      right: -90px;
+      background: radial-gradient(circle, rgba(103,170,168,0.24), transparent 70%);
+      pointer-events: none;
     }
 
-    .brand .number {
-      color: #67aaa8;
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      bottom: -120px;
+      left: -100px;
+      background: radial-gradient(circle, rgba(16,36,51,0.08), transparent 70%);
+      pointer-events: none;
     }
 
-    .claim {
-      margin-top: 18px;
-      font-size: clamp(17px, 3vw, 24px);
-      letter-spacing: 3px;
+    .logo-wrap {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 30px;
     }
 
-    .claim .accent {
-      color: #67aaa8;
+    .logo-wrap img {
+      max-width: 420px;
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 10px 28px rgba(16,36,51,0.08));
     }
 
-    .line {
-      width: 64px;
-      height: 2px;
-      margin: 55px auto 40px;
-      background: #67aaa8;
+    .eyebrow {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(103,170,168,0.10);
+      color: var(--accent-dark);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1 {
-      margin: 0 0 14px;
-      font-size: clamp(23px, 4vw, 34px);
-      font-weight: 400;
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: clamp(34px, 5vw, 60px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      font-weight: 650;
     }
 
-    p {
+    .claim {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      font-size: clamp(20px, 2.7vw, 28px);
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+
+    .claim strong {
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    .intro {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 26px auto 0;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .actions {
+      position: relative;
+      z-index: 1;
+      margin-top: 34px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--text), #1c3b4e);
+      color: white;
+      box-shadow: 0 14px 28px rgba(16,36,51,0.16);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.75);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    .grid {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 10px 30px rgba(16,36,51,0.06);
+      border-radius: var(--radius);
+      padding: 26px 22px;
+      backdrop-filter: blur(10px);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
       margin: 0;
-      color: #718087;
-      font-size: 17px;
-      line-height: 1.6;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      background: rgba(103,170,168,0.12);
+      color: var(--accent-dark);
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .footer-card {
+      margin-top: 26px;
+      background: rgba(255,255,255,0.80);
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 10px 30px rgba(16,36,51,0.06);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      text-align: center;
+    }
+
+    .footer-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    .footer-card strong {
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 22px;
+      text-align: center;
+      color: #7d8a92;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 42px 20px;
+        border-radius: 28px;
+      }
+
+      .logo-wrap img {
+        max-width: 320px;
+      }
+
+      .intro {
+        font-size: 17px;
+      }
     }
   </style>
 </head>
-
 <body>
-  <main class="container">
+  <div class="page">
 
-    <div class="brand">
-      BaRu<span class="number">24</span>
+    <div class="topbar">
+      <div class="badge">
+        <span class="dot"></span>
+        Digitale Immobilienverwaltung in Vorbereitung
+      </div>
     </div>
 
-    <div class="claim">
-      Einfach. Digital. <span class="accent">Verwaltet.</span>
-    </div>
+    <section class="hero">
+      <div class="logo-wrap">
+        <img src="logo.png" alt="BaRu24 Logo" />
+      </div>
 
-    <div class="line"></div>
+      <div class="eyebrow">Coming soon</div>
 
-    <h1>Unsere Website befindet sich aktuell im Aufbau.</h1>
+      <h1>Moderne Immobilienverwaltung für Eigentümer mit Anspruch.</h1>
 
-    <p>
-      Hier entsteht moderne Immobilienverwaltung.
-    </p>
+      <div class="claim">
+        Einfach. Digital. <strong>Verwaltet.</strong>
+      </div>
 
-  </main>
+      <p class="intro">
+        BaRu24 steht für eine neue Art der Immobilienverwaltung:
+        strukturiert, digital und transparent. Unsere Website befindet sich aktuell im Aufbau.
+        Schon bald finden Sie hier weitere Informationen zu unserem Konzept, unserem Service
+        und Ihrem 24/7-Zugriff auf relevante Objekt- und Verwaltungsdaten.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="mailto:info@baru24.de">Kontakt aufnehmen</a>
+        <a class="btn btn-secondary" href="mailto:karol@baru24.de">Direkt anfragen</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="icon">24</div>
+        <h3>Jederzeit digital verfügbar</h3>
+        <p>
+          Die „24“ steht für den digitalen Zugriff rund um die Uhr:
+          Dokumente, Informationen und Prozesse jederzeit im Blick.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">D</div>
+        <h3>Digital gedacht</h3>
+        <p>
+          Klare Strukturen, schlanke Prozesse und moderne Kommunikation
+          bilden die Grundlage für eine effiziente Verwaltung.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="icon">V</div>
+        <h3>Verlässlich verwaltet</h3>
+        <p>
+          Ziel ist eine Immobilienverwaltung, die professionell,
+          transparent und nachvollziehbar arbeitet — für Eigentümer und Gemeinschaften.
+        </p>
+      </div>
+    </section>
+
+    <section class="footer-card">
+      <p>
+        <strong>BaRu24</strong><br>
+        Immobilienverwaltung im Aufbau<br>
+        Bawelski · Ruf
+      </p>
+    </section>
+
+    <footer>
+      © 2026 BaRu24 – Einfach. Digital. Verwaltet.
+    </footer>
+
+  </div>
 </body>
 </html>
